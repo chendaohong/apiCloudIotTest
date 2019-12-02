@@ -23,12 +23,38 @@
             color: #000;
             word-wrap: break-word;
         }
+        .aui-btn-block {
+            float: left;
+            width: 80px;
+            height: 20px;
+            bottom:10px;
+            background-color: #00ffff;
+            color:red;
+        }
+        .aui-btn-info{
+            float: left;
+            margin-left: 10px;
+            border: 1px solid #F00;
+            width: 40px;
+            height: 20px;
+            bottom: 10px;
+            background-color: orange;
+            color: blue;
+        }
+        body{
+            background-color: green;
+        }
+        #sys-info{
+            background: orange;
+        }
     </style>
 </head>
 
 <body>
     <label>Hello APP</label>
     <div id='sys-info'></div>
+    <div class="aui-btn aui-btn-block aui-btn-outlined" onclick="bleBut()">bleBut</div>
+    <div class="aui-btn aui-btn-info" onclick="but1()"><span class="aui-iconfont aui-icon-edit"></span>Page</div>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
@@ -46,9 +72,12 @@
         var frameName = api.frameName || '';
         var frameWidth = api.frameWidth || '';
         var frameHeight = api.frameHeight || '';
+        var appID = api.appId;
+
 
         var str = '<ul>';
         str += '<li>引擎版本信息: ' + ver + '</li>';
+        str += '<li>appID信息: ' + appID + '</li>';
         str += '<li>系统类型: ' + sType + '</li>';
         str += '<li>系统版本: ' + sVer + '</li>';
         str += '<li>设备标识: ' + id + '</li>';
@@ -64,8 +93,35 @@
         str += '</ul>';
 
         $api.byId('sys-info').innerHTML = str;
-
     };
+
+    function but1() {
+        api.openFrame({
+        name : "page1",
+        url : "page1.html",
+        bounces : true,
+        rect : {
+          w : 'auto'
+        }
+      });
+    }
+    function bleBut(){
+       api.openFrame({
+           name: 'page2_ble',
+           url: './page2_ble.html',
+           rect: {
+               x: 0,
+               y: 0,
+               w: 'auto',
+               h: 'auto'
+           },
+           bounces: true,
+           bgColor: 'rgba(0,0,0,0)',
+           vScrollBarEnabled: true,
+           hScrollBarEnabled: true
+       });
+
+    }
 </script>
 
 </html>

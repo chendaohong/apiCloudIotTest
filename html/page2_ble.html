@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Hello Page1</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style>
+      .header{
+        background-color: #0ff;
+        height: 50px;
+        font-size: 20px;
+        text-align: center;
+      }
+      .scanBle{
+        height: 50px;
+        border-bottom: soild 1px;
+        font-size: 20px;
+        text-align: center;
+      }
+      .bleConnect{
+        height: 50px;
+        border-bottom: 1px #444;
+        font-size: 20px;
+        text-align: center;
+      }
+      .bleDisConnect{
+        height: 50px;
+        border-bottom: 1px #444;
+        font-size: 20px;
+        text-align: center;
+      }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+      BLE PAGE
+    </div>
+
+    <div class="scanBle" onclick="ScanBle()">
+      Scan Ble
+    </div>
+
+    <div class="bleConnect" onclick="ConnectBle()">
+      Connect Ble
+    </div>
+
+    <div class="bleDisConnect" onclick="ConnectBle()">
+      DisConnect Ble
+    </div>
+
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+    apiready = function() {
+        var ble = api.require("ble");
+    };
+    function ScanBle(){
+
+    }
+    function ConnectBle(){
+
+    }
+    function DisConnectBle(){
+
+    }
+</script>
+
+</html>
