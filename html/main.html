@@ -8,20 +8,16 @@
     <title>Hello APP</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
     <style>
-        label {
-            margin: 10px;
-            font-size: 24px;
-        }
-
         ul {
             margin-bottom: 10px;
         }
 
         ul li {
-            margin: 5px 10px;
+            margin: 0px 10px;
             padding: 5px;
             color: #000;
             word-wrap: break-word;
+            border-bottom: 1px solid #444;
         }
         .aui-btn-block {
             float: left;
@@ -35,7 +31,7 @@
             float: left;
             margin-left: 10px;
             border: 1px solid #F00;
-            width: 40px;
+            width: 80px;
             height: 20px;
             bottom: 10px;
             background-color: orange;
@@ -45,21 +41,33 @@
             background-color: green;
         }
         #sys-info{
+            margin: 0px 0px 0px 0px;
+            padding: 0px;
             background: orange;
+            height: 100%;
+            width: 100%;
         }
+        /*header {
+            height: 20px;
+            width: 100%;
+            text-align: center;
+            background-color: #81a9c3;
+            color: #fff;
+            line-height: 20px;
+            font-size: 20px;
+        }  */
     </style>
 </head>
 
 <body>
-    <label>Hello APP</label>
     <div id='sys-info'></div>
+    <div class="aui-btn aui-btn-info" onclick="but1()"><span class="aui-iconfont aui-icon-edit"></span>WifiBut</div>
     <div class="aui-btn aui-btn-block aui-btn-outlined" onclick="bleBut()">bleBut</div>
-    <div class="aui-btn aui-btn-info" onclick="but1()"><span class="aui-iconfont aui-icon-edit"></span>Page</div>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
     apiready = function() {
-        var ver = api.version;
+      /*  var ver = api.version;
         var sType = api.systemType;
         var sVer = api.systemVersion;
         var id = api.deviceId;
@@ -69,9 +77,7 @@
         var winName = api.winName;
         var winWidth = api.winWidth;
         var winHeight = api.winHeight;
-        var frameName = api.frameName || '';
-        var frameWidth = api.frameWidth || '';
-        var frameHeight = api.frameHeight || '';
+        var frameName = api.frameName;
         var appID = api.appId;
 
 
@@ -88,11 +94,9 @@
         str += '<li>主窗口宽度: ' + winWidth + '</li>';
         str += '<li>主窗口高度: ' + winHeight + '</li>';
         str += '<li>子窗口名字: ' + frameName + '</li>';
-        str += '<li>子窗口宽度: ' + frameWidth + '</li>';
-        str += '<li>子窗口高度: ' + frameHeight + '</li>';
         str += '</ul>';
 
-        $api.byId('sys-info').innerHTML = str;
+        $api.byId('sys-info').innerHTML = str;  */
     };
 
     function but1() {

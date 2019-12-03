@@ -9,7 +9,7 @@
     <content src="index.html" />
     <access origin="*" />
     <preference name="pageBounce" value="false"/>
-	<preference name="appBackground" value="rgba(0,0,0,0.0)"/>
+	<preference name="appBackground" value="rgba(0,0,0,0.0)"/>  <preference name="backgroundMode" value="bluetooth-central | bluetooth-peripheral"/>
 	<preference name="windowBackground" value="rgba(0,0,0,0.0)"/>
 	<preference name="frameBackgroundColor" value="rgba(0,0,0,0.0)"/>
 	<preference name="hScrollBarEnabled" value="false"/>
@@ -27,5 +27,5 @@
 	<permission name="fileSystem" />
 	<permission name="internet" />
 	<permission name="bootCompleted" />
-	<permission name="hardware" />
+	<permission name="hardware" />  <feature name="bMap">    <param name="android_api_key" value="bYFwwRhvZDP1Eel5Ib570iAneeIdPwqn" />    <param name="ios_api_key" value="bYFwwRhvZDP1Eel5Ib570iAneeIdPwqn" />  </feature>
 </widget>
