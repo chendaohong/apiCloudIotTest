@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Wifi Page1</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style>
+        header {
+          padding: 25px 0 0 0;
+          height: 44px;
+          width: 100%;
+          text-align: center;
+          background-color: #81a9c3;
+          color: #fff;
+          line-height: 20px;
+          font-size: 20px;
+        }
+        .backPage{
+           position: absolute;
+           left:0;
+           bottom: 0;
+           font-size: 16px;
+           height: 20px;
+           width: 60px;
+           color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+      <div class="backPage" onclick="backPrePage()">
+        返回
+      </div>
+      Battery Page</header>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+    apiready = function() {
+
+    };
+
+    function backPrePage(){
+      api.closeFrame({});
+    }
+</script>
+
+</html>

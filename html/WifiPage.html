@@ -1,0 +1,112 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Wifi Page1</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style>
+        header {
+            padding: 25px 0 0 0;
+            height: 44px;
+            width: 100%;
+            text-align: center;
+            background-color: #81a9c3;
+            color: #fff;
+            line-height: 20px;
+            font-size: 20px;
+        }
+
+        .aui-btn {
+            float: left;
+            margin: 5px 2% 5px;
+            padding: 5px 2% 5px;
+            border: 1px solid green;
+            width: 40%;
+            height: 10%;
+            text-align: center;
+            background-color: lightgrey;
+        }
+
+        .backPage {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            font-size: 16px;
+            height: 20px;
+            width: 60px;
+            color: red;
+        }
+
+        #sys-info {
+            position: absolute;
+            bottom: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="backPage" onclick="backPrePage()">
+            返回
+        </div>
+        Wifi Page</header>
+    <div class="aui-btn" onclick="WifiScan()">Wifi扫描</div>
+    <div class="aui-btn" onclick="NewSocket()">创建Socket</div>
+    <div class="aui-btn" onclick="CloseSocket()">关闭Socket</div>
+    <div id='sys-info'></div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+    var bngWifiMag;
+    var socketMag;
+    var socketSid;
+    apiready = function() {
+        var cType = api.connectionType;
+        var str = '<ul>';
+        str += '<li>网络状态: ' + cType + '</li>';
+        str += '</ul>';
+        $api.byId('sys-info').innerHTML = str;
+        bngWifiMag = api.require("bngWifi");
+        socketMag = api.require("socketManager");
+    };
+
+    function backPrePage() {
+        api.closeFrame({});
+    }
+
+    function WifiScan() {
+        wifi.startScan(function(ret, err) {
+            alert(JSON.stringify(ret));
+        });
+    }
+
+    function NewSocket() {
+        socketMag.createSocket({
+            host: '192.168.2.100',
+            port: 8282
+        }, function(ret, err) {
+            if (ret) {
+                alert(JSON.stringify(ret) + "创建成功");
+                socketSid = ret.sid;
+            } else {
+                alert(JSON.stringify(err)+'创建失败');
+                socketSid = 0;
+            }
+        });
+    }
+
+    function CloseSocket(){
+      socketMag.closeSocket({
+          sid: socketSid
+      }, function(ret, err){
+          if( ret.status ){
+              alert( JSON.stringify("已经关闭") );
+          }
+      });
+
+    }
+</script>
+
+</html>

@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width" />
     <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
-    <title>Hello APP</title>
+    <title>IOT TEST</title>
     <link rel="stylesheet" type="text/css" href="./css/api.css" />
     <style type="text/css">
         html,
@@ -20,7 +20,7 @@
         }
 
         header {
-            height: 20px;
+            height: 44px;
             width: 100%;
             text-align: center;
             background-color: #81a9c3;
@@ -68,18 +68,17 @@
         // 最新api.js为了适配iPhoneX增加的方法，修复底部Footer部分与iPhoneX的底部虚拟横条键重叠的问题；
         var footerH = $api.fixTabBar(footer);
 
-        console.log(headerH);
-        console,log(footerH);
-
         api.openFrame({
             name: 'main',
             url: 'html/main.html',
             bounces: true,
             rect: { // 推荐使用Margin布局，用于适配屏幕的动态变化
-                marginTop: headerH, // main页面距离win顶部的高度
+                //marginTop: headerH, // main页面距离win顶部的高度
                 marginBottom: footerH, // main页面距离win底部的高度
                 w: 'auto' // main页面的宽度 自适应屏幕宽度
-            }
+            },
+            pageParam: { DisHeaderH: headerH,
+                         DisFooterH: footerH}
         });
 
         // 获取当前年份时间，并加载显示到页面

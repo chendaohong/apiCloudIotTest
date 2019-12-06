@@ -1,0 +1,158 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Battery Page1</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style>
+        header {
+          padding: 25px 0 0 0;
+          height: 44px;
+          width: 100%;
+          text-align: center;
+          background-color: #81a9c3;
+          color: #fff;
+          line-height: 20px;
+          font-size: 20px;
+        }
+        .aui-btn {
+            float: left;
+            margin: 5px 2% 5px;
+            padding: 5px 2% 5px;
+            border: 1px solid green;
+            width: 40%;
+            height: 10%;
+            text-align: center;
+            background-color: lightgrey;
+        }
+        .backPage{
+           position: absolute;
+           left:0;
+           bottom: 0;
+           font-size: 16px;
+           height: 20px;
+           width: 60px;
+           color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+      <div class="backPage" onclick="backPrePage()">
+        返回
+      </div>
+      Battery Page</header>
+    <div class="aui-btn" onclick="fnGetBatteryStatus()">电池充电状态</div>
+    <div class="aui-btn" onclick="fnGetBatteryHealthInfo()">电池健康信息</div>
+    <div class="aui-btn" onclick="fnIsBatteryPresent()">电池取出状态</div>
+    <div class="aui-btn" onclick="fnGetBatteryLevel()">电池剩余电量</div>
+    <div class="aui-btn" onclick="fnGetBatteryPluggedType()">电池充电类型</div>
+    <div class="aui-btn" onclick="fnGetBatteryVoltage()">电池电压</div>
+    <div class="aui-btn" onclick="fnGetBatteryTemperature()">电池温度</div>
+    <div class="aui-btn" onclick="fnGetBatteryTechnology()">电池技术</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+    var batteryManager;
+    apiready = function() {  //需延时一会才准备好
+            batteryManager = api.require('batteryManager');
+    }
+    function fnGetBatteryStatus() {
+            batteryManager.getBatteryStatus(function(ret) {
+                    var s_description = '充电状态';
+                    if (ret.status == 1) {
+                            s_description = '未知状态';
+                    } else if (ret.status == 2) {
+                            s_description = '正在充电';
+                    } else if (ret.status == 3) {
+                            s_description = '正在放电';
+                    } else if (ret.status == 4) {
+                            s_description = '电池未充电';
+                    } else if (ret.status == 5) {
+                            s_description = ' 电量充满';
+                    }
+                    alert(JSON.stringify(s_description));
+            });
+    }
+
+    function fnGetBatteryHealthInfo() {
+            batteryManager.getBatteryHealthInfo(function(ret) {
+                    var s_description = '电池状态';
+                    if (ret.health == 1) {
+                            s_description = '电池状态未知';
+                    } else if (ret.health == 2) {
+                            s_description = '电池状态良好';
+                    } else if (ret.health == 3) {
+                            s_description = '电池温度过高';
+                    } else if (ret.health == 4) {
+                            s_description = '电池已损毁';
+                    } else if (ret.health == 5) {
+                            s_description = '电池电压过高';
+                    } else if (ret.health == 7) {
+                            s_description = '电池温度过低';
+                    }
+                    alert(JSON.stringify(s_description));
+            });
+    }
+
+    function fnIsBatteryPresent() {    //huawei Y9 Prime STK-L22 获取结果不准
+            batteryManager.isBatteryPresent(function(ret) {
+                    var s_description = '未取出电池';
+                    if (ret.isPresent == true) {
+                            s_description = '已取出电池';
+                    }
+                    alert(JSON.stringify(s_description));
+            });
+    }
+
+    function fnGetBatteryLevel() {
+            batteryManager.getBatteryLevel(function(ret) {
+                    alert('剩余电量（百分比）:' + JSON.stringify(ret));
+            });
+    }
+
+    function fnGetBatteryScale() {
+            batteryManager.getBatteryScale(function(ret) {
+                    alert('电池电量最大值:' + JSON.stringify(ret));
+            });
+    }
+
+    function fnGetBatteryPluggedType() {
+            batteryManager.getBatteryPluggedType(function(ret) {
+                    var s_description = '交流电插头';
+                    if (ret.pluggedType == 2) {
+                            s_description = ' USB插头充电';
+                    } else if (ret.pluggedType == 4) {
+                            s_description = '无线充电';
+                    }
+                    alert('充电插线类型 :'+JSON.stringify(s_description));
+            });
+    }
+
+    function fnGetBatteryVoltage() {
+            batteryManager.getBatteryVoltage(function(ret) {
+                    alert('电池电压:' + JSON.stringify(ret.voltage)+'V');
+            });
+    }
+
+    function fnGetBatteryTemperature() {
+            batteryManager.getBatteryTemperature(function(ret) {
+            alert('电池温度:' + JSON.stringify(ret.temp)+'℃');
+            });
+    }
+
+    function fnGetBatteryTechnology() {
+            batteryManager.getBatteryTechnology(function(ret) {
+                    alert('电池技术:' + JSON.stringify(ret.tech));
+            });
+    }
+
+    function backPrePage(){
+      api.closeFrame({});
+    }
+</script>
+
+</html>

@@ -8,123 +8,148 @@
     <title>Hello APP</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
     <style>
-        ul {
-            margin-bottom: 10px;
-        }
-
-        ul li {
-            margin: 0px 10px;
-            padding: 5px;
-            color: #000;
-            word-wrap: break-word;
-            border-bottom: 1px solid #444;
-        }
-        .aui-btn-block {
-            float: left;
-            width: 80px;
-            height: 20px;
-            bottom:10px;
-            background-color: #00ffff;
-            color:red;
-        }
-        .aui-btn-info{
-            float: left;
-            margin-left: 10px;
-            border: 1px solid #F00;
-            width: 80px;
-            height: 20px;
-            bottom: 10px;
-            background-color: orange;
-            color: blue;
-        }
-        body{
-            background-color: green;
-        }
-        #sys-info{
-            margin: 0px 0px 0px 0px;
-            padding: 0px;
-            background: orange;
-            height: 100%;
-            width: 100%;
-        }
-        /*header {
-            height: 20px;
+        header {
+            padding: 25px 0 0 0;
+            height: 44px;
             width: 100%;
             text-align: center;
             background-color: #81a9c3;
             color: #fff;
             line-height: 20px;
             font-size: 20px;
-        }  */
+        }
+        .aui-btn {
+            float: left;
+            margin: 5px 2% 5px;
+            padding: 5px 2% 5px;
+            border: 1px solid green;
+            width: 40%;
+            height: 10%;
+            text-align: center;
+            background-color: lightgrey;
+        }
+        .exitApp{
+           position: absolute;
+           height: 5%;
+           bottom: 0;
+           width:88%;
+        }
+
     </style>
 </head>
 
 <body>
-    <div id='sys-info'></div>
-    <div class="aui-btn aui-btn-info" onclick="but1()"><span class="aui-iconfont aui-icon-edit"></span>WifiBut</div>
-    <div class="aui-btn aui-btn-block aui-btn-outlined" onclick="bleBut()">bleBut</div>
+    <!--div id='sys-info'></div-->
+    <header>IoTTest</header>
+    <div class="aui-btn aui-btn-info" onclick="wifiBut()"><span class="aui-iconfont aui-icon-edit"></span>Wifi测试</div>
+    <div class="aui-btn aui-btn-block aui-btn-outlined" onclick="bleBut()">BLE测试</div>
+    <div class="aui-btn" onclick="wxBut()">微信测试</div>
+    <div class="aui-btn" onclick="qqBut()">QQ测试</div>
+    <div class="aui-btn" onclick="alipayBut()">支付宝测试</div>
+    <div class="aui-btn" onclick="QRScanBut()">扫码测试</div>
+    <div class="aui-btn" onclick="dbBut()">数据库测试</div>
+    <div class="aui-btn" onclick="bMapBut()">百度地图测试</div>
+    <div class="aui-btn" onclick="fsBut()">FS文档测试</div>
+    <div class="aui-btn" onclick="gifBut()">进度条动画测试</div>
+    <div class="aui-btn" onclick="loginBut()">登录测试</div>
+    <div class="aui-btn" onclick="batteryBut()">电池电量</div>
+    <div class="aui-btn exitApp" onclick="quitApp()">退出</div>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
+
+    var DisHeaderH;
+    var DisFooterH;
     apiready = function() {
-      /*  var ver = api.version;
-        var sType = api.systemType;
-        var sVer = api.systemVersion;
-        var id = api.deviceId;
-        var model = api.deviceModel;
-        var name = api.deviceName;
-        var cType = api.connectionType;
-        var winName = api.winName;
-        var winWidth = api.winWidth;
-        var winHeight = api.winHeight;
-        var frameName = api.frameName;
-        var appID = api.appId;
 
-
-        var str = '<ul>';
-        str += '<li>引擎版本信息: ' + ver + '</li>';
-        str += '<li>appID信息: ' + appID + '</li>';
-        str += '<li>系统类型: ' + sType + '</li>';
-        str += '<li>系统版本: ' + sVer + '</li>';
-        str += '<li>设备标识: ' + id + '</li>';
-        str += '<li>设备型号: ' + model + '</li>';
-        str += '<li>设备名称: ' + name + '</li>';
-        str += '<li>网络状态: ' + cType + '</li>';
-        str += '<li>主窗口名字: ' + winName + '</li>';
-        str += '<li>主窗口宽度: ' + winWidth + '</li>';
-        str += '<li>主窗口高度: ' + winHeight + '</li>';
-        str += '<li>子窗口名字: ' + frameName + '</li>';
-        str += '</ul>';
-
-        $api.byId('sys-info').innerHTML = str;  */
+      DisHeaderH = api.pageParam.DisHeaderH;
+      DisFooterH = api.pageParam.DisFooterH;
     };
 
-    function but1() {
+    function wifiBut() {
         api.openFrame({
-        name : "page1",
-        url : "page1.html",
-        bounces : true,
-        rect : {
-          w : 'auto'
-        }
-      });
+            name: "WifiPage",
+            url: "./WifiPage.html",
+            bounces: true,
+            rect: { // 推荐使用Margin布局，用于适配屏幕的动态变化
+                //marginTop: DisHeaderH, // main页面距离win顶部的高度
+                marginBottom: DisFooterH, // main页面距离win底部的高度
+                w: 'auto' // main页面的宽度 自适应屏幕宽度
+            }
+        });
     }
-    function bleBut(){
-       api.openFrame({
-           name: 'page2_ble',
-           url: './page2_ble.html',
-           rect: {
-               x: 0,
-               y: 0,
-               w: 'auto',
-               h: 'auto'
-           },
-           bounces: true,
-           bgColor: 'rgba(0,0,0,0)',
-           vScrollBarEnabled: true,
-           hScrollBarEnabled: true
-       });
 
+    function bleBut() {
+        api.openFrame({
+            name: 'BlePage',
+            url: './BlePage.html',
+            bounces: true,
+            rect: { // 推荐使用Margin布局，用于适配屏幕的动态变化
+                //marginTop: DisHeaderH, // main页面距离win顶部的高度
+                marginBottom: DisFooterH, // main页面距离win底部的高度
+                w: 'auto' // main页面的宽度 自适应屏幕宽度
+            }
+        });
+    }
+
+    function bMapBut() {
+        api.openFrame({
+            name: 'bMapPage',
+            url: './bMapPage.html',
+            bounces: false,
+            rect: { // 推荐使用Margin布局，用于适配屏幕的动态变化
+                //marginTop: DisHeaderH, // main页面距离win顶部的高度
+                marginBottom: DisFooterH, // main页面距离win底部的高度
+                w: 'auto' // main页面的宽度 自适应屏幕宽度
+            },
+            pageParam:{
+              DisHeaderH:DisHeaderH,
+              DisFooterH:DisFooterH
+            }
+        });
+    }
+
+    function batteryBut() {
+        api.openFrame({
+            name: 'BatteryPage',
+            url: './BatteryPage.html',
+            bounces: true,
+            rect: { // 推荐使用Margin布局，用于适配屏幕的动态变化
+                //marginTop: DisHeaderH, // main页面距离win顶部的高度
+                marginBottom: DisFooterH, // main页面距离win底部的高度
+                w: 'auto' // main页面的宽度 自适应屏幕宽度
+            }
+        });
+    }
+
+    function fsBut() {
+        api.openFrame({
+            name: 'FsPage',
+            url: './FsPage.html',
+            bounces: true,
+            rect: { // 推荐使用Margin布局，用于适配屏幕的动态变化
+                //marginTop: DisHeaderH, // main页面距离win顶部的高度
+                marginBottom: DisFooterH, // main页面距离win底部的高度
+                w: 'auto' // main页面的宽度 自适应屏幕宽度
+            }
+        });
+    }
+
+    function QRScanBut() {
+        api.openFrame({
+            name: 'QRScanPage',
+            url: './QRScanPage.html',
+            bounces: true,
+            rect: { // 推荐使用Margin布局，用于适配屏幕的动态变化
+                //marginTop: DisHeaderH, // main页面距离win顶部的高度
+                marginBottom: DisFooterH, // main页面距离win底部的高度
+                w: 'auto' // main页面的宽度 自适应屏幕宽度
+            }
+        });
+    }
+
+    function quitApp(){
+          api.closeWidget({});
     }
 </script>
 

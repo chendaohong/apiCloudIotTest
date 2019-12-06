@@ -1,0 +1,124 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+
+    <title>bMap Page1</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style>
+        header {
+            padding: 25px 0 0 0;
+            height: 44px;
+            width: 100%;
+            text-align: center;
+            background-color: #81a9c3;
+            color: #fff;
+            line-height: 20px;
+            font-size: 20px;
+        }
+
+        .aui-btn {
+            float: left;
+            margin: 5px 2% 5px;
+            padding: 5px 2% 5px;
+            border: 1px solid green;
+            width: 40%;
+            height: 10%;
+            text-align: center;
+            background-color: lightgrey;
+        }
+
+        .backPage {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            font-size: 16px;
+            height: 20px;
+            width: 60px;
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="backPage" onclick="backPrePage()">
+            返回
+        </div>
+        bMap Page</header>
+    <div class="aui-btn" onclick="openBmap()">打开地图</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+    var bMap;
+    var lonPoint;        //经度值
+    var latPoint;        //纬度值
+    apiready = function() {
+        bMap = api.require("bMap");
+
+        bMap.getLocation({
+            accuracy: '100m',
+            autoStop: true,
+            filter: 1
+        }, function(ret, err) {
+            if (ret.status) {
+                //alert(JSON.stringify(ret));
+                lonPoint = ret.lon;
+                latPoint = ret.lat;
+            } else {
+                //alert(err.code);
+                if (lonPoint == undefined) {
+                    lonPoint = 116.4021310000;
+                }
+                if (latPoint == undefined) {
+                    latPoint = 39.9994480000;
+                }
+                //console.log("经度:" + lonPoint + "; 纬度:" + latPoint + ";")
+            }
+        });
+    };
+
+    function openBmap() {
+        bMap.open({
+            rect: {
+                x: 0,
+                y: api.pageParam.DisHeaderH,
+                w: 'auto',
+                h: api.frameHeight - api.pageParam.DisHeaderH
+            },
+            center: {
+                lon: lonPoint, //lon: 116.4021310000,
+                lat: latPoint //lat: 39.9994480000
+            },
+            zoomLevel: 12,
+            showUserLocation: true,
+            fixedOn: api.frameName,
+            fixed: true
+        }, function(ret) {
+            if (ret.status) {
+                //alert('地图打开成功');
+            } else {
+                alert('地图打开出错');
+            }
+        });
+        bMap.addAnnotations({
+            annotations: [{
+                id: 1,
+                lon: lonPoint,
+                lat: latPoint
+            }],
+            draggable: true
+        }, function(ret) {
+            if (ret) {
+                alert("位置" + ret.id);
+            }
+        });
+    }
+
+    function backPrePage() {
+        api.closeFrame({});
+    }
+</script>
+
+</html>

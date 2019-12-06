@@ -1,0 +1,152 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+
+    <title>QR Scan Page1</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style>
+        header {
+            padding: 25px 0 0 0;
+            height: 44px;
+            width: 100%;
+            text-align: center;
+            background-color: #81a9c3;
+            color: #fff;
+            line-height: 20px;
+            font-size: 20px;
+        }
+
+        .aui-btn {
+            float: left;
+            margin: 5px 2% 5px;
+            padding: 5px 2% 5px;
+            border: 1px solid green;
+            width: 40%;
+            height: 10%;
+            text-align: center;
+            background-color: lightgrey;
+        }
+
+        #qr-Info {
+            position: absolute;
+            bottom: 0;
+        }
+
+        .backPage {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            font-size: 16px;
+            height: 20px;
+            width: 60px;
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="backPage" onclick="backPrePage()">
+            返回
+        </div>
+        QRScan Page</header>
+    <div class="aui-btn" onclick="OpenQRScan()">打开扫码1</div>
+    <div class="aui-btn" onclick="OpenQRScan2()">打开扫码2</div>
+    <div class="aui-btn" onclick="imgQRScan()">识别图片二维码</div>
+    <div id="qr-Info">扫码内容:</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+    var fnScanner;
+    var str;
+    var UIAlbumBrowser;
+    apiready = function() {
+        fnScanner = api.require("FNScanner");
+        UIAlbumBrowser = api.require("UIAlbumBrowser");
+    };
+
+    function OpenQRScan() {
+        fnScanner.openScanner({
+            autorotation: true,
+            //isDrawQRCodeRect: true
+        }, function(ret, err) {
+            if (ret) {
+                if (ret.eventType == 'success') {
+                    //alert(JSON.stringify( "打开成功" + ret));
+                    str = "扫码内容:" + ret.content;
+                    $api.byId('qr-Info').innerHTML = str;
+                } else if (ret.eventType == 'success') {
+                    alert(JSON.stringify("图片解码" + ret));
+                } else {
+                    alert(JSON.stringify("其它返回" + ret));
+                }
+                //alert(JSON.stringify( "打开成功" + ret));
+            } else {
+                alert(JSON.stringify("打开失败" + err));
+            }
+        });
+    }
+
+    function OpenQRScan2() {
+        fnScanner.open({
+            autorotation: true
+        }, function(ret, err) {
+            if (ret) {
+                alert(JSON.stringify(ret));
+            } else {
+                alert(JSON.stringify(err));
+            }
+        });
+    }
+
+    function imgQRScan() {
+        var qrImgPath;
+        UIAlbumBrowser.open({
+            max: 1,            //最多只能选一张图片
+            type: 'image',
+            styles: {
+                bg: '#fff',
+                mark: {
+                    icon: '',
+                    position: 'bottom_left',
+                    size: 20
+                },
+                nav: {
+                    bg: 'rgba(0,0,0,0.6)',
+                    titleColor: '#fff',
+                    titleSize: 18,
+                    cancelColor: '#fff',
+                    cancelSize: 16,
+                    finishColor: '#fff',
+                    finishSize: 16
+                }
+            },
+            rotation: true
+        }, function(ret) {
+            if (ret) {
+                alert(JSON.stringify(ret));
+                if(ret.eventType == 'confirm'){
+                    qrImgPath = ret.list[0].path;
+                    console.log(qrImgPath);                    
+                    fnScanner.decodeImg({
+                        path: qrImgPath
+                    }, function(ret, err) {
+                        if (ret.status) {
+                            alert(JSON.stringify("识别成功" + ret));
+                        } else {
+                            alert(JSON.stringify("识别失败" + err));
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    function backPrePage() {
+        api.closeFrame({});
+    }
+</script>
+
+</html>

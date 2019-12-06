@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+
+    <title>FS Page1</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style>
+        header {
+          padding: 25px 0 0 0;
+          height: 44px;
+          width: 100%;
+          text-align: center;
+          background-color: #81a9c3;
+          color: #fff;
+          line-height: 20px;
+          font-size: 20px;
+        }
+        .aui-btn {
+            float: left;
+            margin: 5px 2% 5px;
+            padding: 5px 2% 5px;
+            border: 1px solid green;
+            width: 40%;
+            height: 10%;
+            text-align: center;
+            background-color: lightgrey;
+        }
+        .backPage{
+           position: absolute;
+           left:0;
+           bottom: 0;
+           font-size: 16px;
+           height: 20px;
+           width: 60px;
+           color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+      <div class="backPage" onclick="backPrePage()">
+        返回
+      </div>
+      FS Page</header>
+    <div class="aui-btn" onclick="createDir()">创建目录</div>
+    <div class="aui-btn" onclick="listDir()">浏览目录</div>
+    <div class="aui-btn" onclick="listDir2()">创建目录2</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+
+    var fs;
+    var fileBrowser;
+    apiready = function() {
+      fs = api.require("fs");
+      fileBrowser = api.require("fileBrowser");
+    };
+
+    function backPrePage(){
+      api.closeFrame({});
+    }
+
+    function listDir(){
+      fs.readDir({
+        path: 'fs://'},
+        function(ret, err){
+          if(ret.status){
+            alert(JSON.stringify(ret));
+          }
+          else{
+            alert(JSON.stingify(err));
+          }
+      });
+    }
+
+    function listDir2(){
+      fileBrowser.open(function( ret, err ){
+          if( ret ){
+              alert( JSON.stringify( ret ) );
+          }else{
+              alert( JSON.stringify( err ) );
+          }
+      });
+    }
+
+    function createDir(){
+      fs.createDir({
+          path: 'fs://chen'
+      }, function(ret, err){
+          if( ret.status ){
+              alert( JSON.stringify( "创建成功"+ret ) );
+          }else{
+              alert( JSON.stringify( "创建失败"+err ) );
+          }
+      });
+    }
+</script>
+
+</html>
